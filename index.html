@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Peter Blvnco — Elite Lyricism</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-black': '#05070D',
+                        'electric-blue': '#3B82F6',
+                        'purple-neon': '#8B5CF6',
+                        'cyan-wave': '#06B6D4',
+                    },
+                    fontFamily: {
+                        'cinzel': ['Cinzel', 'serif'],
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                        'japanese': ['Noto Serif JP', 'serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'grain': 'grain 0.5s steps(10) infinite',
+                        'flicker': 'flicker 4s infinite',
+                        'wave-drift': 'waveDrift 8s ease-in-out infinite',
+                        'fade-up': 'fadeUp 1s ease-out forwards',
+                        'slide-in': 'slideIn 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.2)' },
+                            '50%': { boxShadow: '0 0 40px rgba(59, 130, 246, 0.6), 0 0 80px rgba(139, 92, 246, 0.4)' },
+                        },
+                        grain: {
+                            '0%, 100%': { transform: 'translate(0, 0)' },
+                            '10%': { transform: 'translate(-5%, -10%)' },
+                            '20%': { transform: 'translate(-15%, 5%)' },
+                            '30%': { transform: 'translate(7%, -25%)' },
+                            '40%': { transform: 'translate(-5%, 25%)' },
+                            '50%': { transform: 'translate(-15%, 10%)' },
+                            '60%': { transform: 'translate(15%, 0%)' },
+                            '70%': { transform: 'translate(0%, 15%)' },
+                            '80%': { transform: 'translate(3%, 35%)' },
+                            '90%': { transform: 'translate(-10%, 10%)' },
+                        },
+                        flicker: {
+                            '0%, 19%, 21%, 23%, 25%, 54%, 56%, 100%': { opacity: '1' },
+                            '20%, 24%, 55%': { opacity: '0.4' },
+                        },
+                        waveDrift: {
+                            '0%, 100%': { transform: 'translateX(0) translateY(0)' },
+                            '25%': { transform: 'translateX(10px) translateY(-5px)' },
+                            '50%': { transform: 'translateX(-5px) translateY(10px)' },
+                            '75%': { transform: 'translateX(-10px) translateY(-10px)' },
+                        },
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideIn: {
+                            '0%': { opacity: '0', transform: 'translateX(-50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: #05070D;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .film-grain {
+            position: fixed;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox=%270 0 200 200%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noise%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23noise)%27/%3E%3C/svg%3E");
+            animation: grain 0.5s steps(10) infinite;
+        }
+        .ocean-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(59, 130, 246, 0.03) 30%, rgba(139, 92, 246, 0.05) 60%, rgba(6, 182, 212, 0.04) 100%);
+            transform-origin: bottom center;
+        }
+        .wave-1 { animation: waveMove1 15s ease-in-out infinite; }
+        .wave-2 { animation: waveMove2 20s ease-in-out infinite; opacity: 0.5; }
+        .wave-3 { animation: waveMove3 25s ease-in-out infinite; opacity: 0.3; }
+        @keyframes waveMove1 {
+            0%, 100% { transform: translateX(-25%) translateY(0) scaleY(1); }
+            50% { transform: translateX(-30%) translateY(-20px) scaleY(1.1); }
+        }
+        @keyframes waveMove2 {
+            0%, 100% { transform: translateX(-20%) translateY(0) scaleY(1); }
+            50% { transform: translateX(-35%) translateY(-30px) scaleY(1.2); }
+        }
+        @keyframes waveMove3 {
+            0%, 100% { transform: translateX(-30%) translateY(0) scaleY(1); }
+            50% { transform: translateX(-25%) translateY(-15px) scaleY(1.05); }
+        }
+        .particles-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.8), transparent);
+            animation: particleFloat linear infinite;
+        }
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
+        }
+        .navbar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 1rem 1.25rem;
+        }
+        @media (min-width: 768px) {
+            .navbar { padding: 1.5rem 2rem; }
+        }
+        .navbar.scrolled {
+            background: rgba(5, 7, 13, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+            padding: 0.75rem 1.25rem;
+        }
+        @media (min-width: 768px) {
+            .navbar.scrolled { padding: 0.75rem 2rem; }
+        }
+        .nav-link {
+            position: relative;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-link:hover { color: #3B82F6; }
+        .nav-link:hover::after { width: 100%; }
+        .nav-logo {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        @media (min-width: 768px) {
+            .nav-logo { font-size: 1.25rem; }
+        }
+        .mobile-menu {
+            position: fixed;
+            top: 0; right: 0;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            background: rgba(5, 7, 13, 0.98);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        .mobile-menu .nav-link {
+            font-size: 1.1rem;
+            letter-spacing: 0.2em;
+        }
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 101;
+            padding: 8px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: #3B82F6;
+            transition: all 0.3s;
+            border-radius: 1px;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        .desktop-nav {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .hamburger { display: none; }
+            .desktop-nav { display: flex; align-items: center; gap: 2rem; }
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url(bWTTXR.jpeg);
+            background-size: cover;
+            background-position: center 20%;
+            z-index: 0;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(5, 7, 13, 0.4) 0%, rgba(5, 7, 13, 0.6) 30%, rgba(5, 7, 13, 0.8) 60%, rgba(5, 7, 13, 0.98) 100%);
+            z-index: 1;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, transparent 20%, rgba(5, 7, 13, 0.7) 100%);
+            z-index: 1;
+        }
+        .glass {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .glass-hover:hover {
+            background: rgba(15, 23, 42, 0.6);
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2), 0 0 60px rgba(139, 92, 246, 0.1);
+            transform: scale(1.02);
+        }
+        .neon-text {
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.2);
+        }
+        .neon-border {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3), inset 0 0 15px rgba(139, 92, 246, 0.1);
+        }
+        .neon-border:hover {
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5), 0 0 50px rgba(139, 92, 246, 0.3), inset 0 0 25px rgba(139, 92, 246, 0.2);
+        }
+        .progress-container {
+            position: relative;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+            touch-action: none;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6, #06B6D4);
+            border-radius: 4px;
+            transition: width 0.1s linear;
+            position: relative;
+        }
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px; height: 16px;
+            background: #06B6D4;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #06B6D4, 0 0 20px #3B82F6;
+            opacity: 1;
+        }
+        @media (min-width: 768px) {
+            .progress-fill::after { opacity: 0; }
+            .progress-container:hover .progress-fill::after { opacity: 1; }
+        }
+        .progress-wave {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.3), transparent);
+            animation: progressWave 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes progressWave {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+            touch-action: none;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: #06B6D4;
+            box-shadow: 0 0 10px #06B6D4;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.3);
+        }
+        .waveform-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            height: 40px;
+        }
+        @media (min-width: 768px) {
+            .waveform-container { gap: 3px; height: 60px; }
+        }
+        .waveform-bar {
+            width: 3px;
+            background: linear-gradient(to top, #3B82F6, #8B5CF6, #06B6D4);
+            border-radius: 2px;
+            transition: height 0.15s ease;
+        }
+        @media (min-width: 768px) {
+            .waveform-bar { width: 4px; }
+        }
+        .glitch-text {
+            position: relative;
+            animation: glitchText 5s infinite;
+        }
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+        .glitch-text::before {
+            color: #3B82F6;
+            animation: glitchBefore 3s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        }
+        .glitch-text::after {
+            color: #8B5CF6;
+            animation: glitchAfter 3s infinite;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+        }
+        @keyframes glitchBefore {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-3px, 1px); }
+            94% { transform: translate(3px, -1px); }
+            96% { transform: translate(-2px, 0); }
+        }
+        @keyframes glitchAfter {
+            0%, 90%, 100% { transform: translate(0); }
+            91% { transform: translate(2px, -1px); }
+            93% { transform: translate(-2px, 1px); }
+            95% { transform: translate(1px, 0); }
+        }
+        @keyframes glitchText {
+            0%, 95%, 100% { opacity: 1; }
+            96% { opacity: 0.8; }
+            97% { opacity: 1; }
+            98% { opacity: 0.9; }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .track-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .track-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        .track-card:hover::before {
+            left: 100%;
+        }
+        .track-card:hover {
+            transform: translateX(4px);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15), 0 0 60px rgba(139, 92, 246, 0.1);
+        }
+        @media (min-width: 768px) {
+            .track-card:hover { transform: translateX(8px); }
+        }
+        .track-card.active-track {
+            border-color: #3B82F6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), inset 0 0 20px rgba(59, 130, 246, 0.05);
+        }
+        .ink-brush {
+            position: absolute;
+            opacity: 0.06;
+            pointer-events: none;
+        }
+        .smoke-overlay {
+            position: absolute;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            opacity: 0.3;
+            background: radial-gradient(ellipse at 50% 100%, rgba(139, 92, 246, 0.1), transparent 70%);
+            animation: smokeRise 10s ease-in-out infinite;
+        }
+        @keyframes smokeRise {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+            50% { transform: translateY(-30px) scale(1.1); opacity: 0.2; }
+        }
+        .play-btn-pulse {
+            position: relative;
+        }
+        .play-btn-pulse::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            animation: playPulse 2s ease-out infinite;
+        }
+        @keyframes playPulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #05070D; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #3B82F6, #8B5CF6); border-radius: 2px; }
+        .album-glow {
+            position: relative;
+        }
+        .album-glow::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6, #06B6D4);
+            opacity: 0.3;
+            filter: blur(15px);
+            z-index: -1;
+            animation: albumGlow 4s ease-in-out infinite;
+        }
+        @media (min-width: 768px) {
+            .album-glow::before { inset: -10px; border-radius: 16px; filter: blur(20px); }
+        }
+        @keyframes albumGlow {
+            0%, 100% { opacity: 0.3; filter: blur(15px); }
+            50% { opacity: 0.5; filter: blur(25px); }
+        }
+        .silhouette {
+            position: absolute;
+            bottom: 0;
+            right: 5%;
+            width: 200px;
+            height: 350px;
+            opacity: 0.1;
+            background: linear-gradient(to top, rgba(139, 92, 246, 0.3), transparent);
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 200%27%3E%3Cpath d=%27M50 10 C30 10 20 30 20 50 C20 70 30 80 35 90 C30 100 25 120 25 140 C25 160 30 180 40 200 L60 200 C70 180 75 160 75 140 C75 120 70 100 65 90 C70 80 80 70 80 50 C80 30 70 10 50 10Z%27 fill=%27white%27/%3E%3C/svg%3E");
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            mask-position: bottom;
+            animation: silhouetteFade 8s ease-in-out infinite;
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .silhouette { display: block; width: 300px; height: 500px; }
+        }
+        @keyframes silhouetteFade {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.2; }
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), transparent);
+            margin: 0 auto;
+            max-width: 300px;
+        }
+        @media (min-width: 768px) {
+            .section-divider { max-width: 600px; }
+        }
+        .player-bg-blur {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: blur(60px) brightness(0.3);
+            opacity: 0.4;
+            transition: background-image 1s ease;
+            z-index: -1;
+        }
+        @media (min-width: 768px) {
+            .player-bg-blur { filter: blur(80px) brightness(0.3); opacity: 0.5; }
+        }
+        .touch-btn {
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-title {
+            font-size: 2.5rem;
+            line-height: 1.1;
+        }
+        @media (min-width: 375px) {
+            .hero-title { font-size: 3rem; }
+        }
+        @media (min-width: 640px) {
+            .hero-title { font-size: 4rem; }
+        }
+        @media (min-width: 768px) {
+            .hero-title { font-size: 5rem; }
+        }
+        @media (min-width: 1024px) {
+            .hero-title { font-size: 7rem; }
+        }
+        @media (min-width: 1280px) {
+            .hero-title { font-size: 9rem; }
+        }
+        section {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        .section-padding {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+        @media (min-width: 768px) {
+            .section-padding { padding-top: 5rem; padding-bottom: 5rem; }
+        }
+        @media (min-width: 1024px) {
+            .section-padding { padding-top: 8rem; padding-bottom: 8rem; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <!-- Film Grain -->
+    <div class="film-grain"></div>
+    <!-- Ocean Waves -->
+    <div class="ocean-bg">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+    </div>
+    <!-- Particles -->
+    <div class="particles-container" id="particles"></div>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#hero" class="nav-logo">BLVNCO</a>
+            <div class="desktop-nav">
+                <a href="#hero" class="nav-link">Home</a>
+                <a href="#player" class="nav-link">Music</a>
+                <a href="#tracks" class="nav-link">Tracks</a>
+                <a href="#bio" class="nav-link">Bio</a>
+                <a href="#player" class="px-5 py-2 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 border border-electric-blue/30 text-electric-blue font-orbitron text-xs tracking-widest uppercase rounded-sm transition-all duration-300 hover:from-electric-blue/30 hover:to-purple-neon/30 hover:border-electric-blue/60">
+                    Stream
+                </a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#hero" class="nav-link" onclick="closeMobileMenu()">Home</a>
+        <a href="#player" class="nav-link" onclick="closeMobileMenu()">Music</a>
+        <a href="#tracks" class="nav-link" onclick="closeMobileMenu()">Tracks</a>
+        <a href="#bio" class="nav-link" onclick="closeMobileMenu()">Bio</a>
+        <a href="#player" class="px-8 py-3 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 border border-electric-blue/30 text-electric-blue font-orbitron text-sm tracking-widest uppercase rounded-sm" onclick="closeMobileMenu()">
+            Stream Now
+        </a>
+    </div>
+    <!-- Hero -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden z-10">
+        <div class="hero-bg"></div>
+        <div class="silhouette"></div>
+        <div class="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto pt-16">
+            <p class="font-japanese text-cyan-wave/40 text-sm sm:text-lg md:text-xl mb-3 sm:mb-4 tracking-[0.3em] animate-fade-up" style="animation-delay: 0.2s;">
+                影の中から
+            </p>
+            <h1 class="glitch-text hero-title font-cinzel font-black tracking-wider mb-3 sm:mb-4 neon-text animate-fade-up" data-text="PETER BLVNCO" style="animation-delay: 0.4s;">
+                PETER BLVNCO
+            </h1>
+            <p class="font-orbitron text-electric-blue/80 text-xs sm:text-sm md:text-lg tracking-[0.3em] sm:tracking-[0.4em] uppercase mb-8 sm:mb-12 animate-fade-up" style="animation-delay: 0.6s;">
+                Elite lyricism from the shadows of Cleveland
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center animate-fade-up" style="animation-delay: 0.8s;">
+                <a href="#player" class="group relative px-8 sm:px-10 py-3 sm:py-4 bg-transparent border border-electric-blue/50 text-electric-blue font-orbitron text-xs sm:text-sm tracking-widest uppercase rounded-sm overflow-hidden transition-all duration-500 hover:border-electric-blue hover:text-white neon-border w-full sm:w-auto text-center">
+                    <span class="relative z-10">Enter Experience</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+                </a>
+                <a href="#player" class="group px-8 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 border border-purple-neon/30 text-white font-orbitron text-xs sm:text-sm tracking-widest uppercase rounded-sm transition-all duration-500 hover:from-electric-blue/30 hover:to-purple-neon/30 hover:border-purple-neon/60 neon-border w-full sm:w-auto text-center">
+                    Stream Now
+                </a>
+            </div>
+            <div class="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-electric-blue/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </div>
+    </section>
+    <div class="section-divider reveal"></div>
+    <!-- Music Player -->
+    <section id="player" class="relative section-padding z-10">
+        <div class="player-bg-blur" id="playerBgBlur"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="reveal">
+                <h2 class="font-cinzel text-2xl sm:text-3xl md:text-5xl font-bold text-center mb-2 sm:mb-4 neon-text">THE SOUND</h2>
+                <p class="font-orbitron text-electric-blue/60 text-center text-xs sm:text-sm tracking-[0.3em] uppercase mb-10 sm:mb-16">Immersive Audio Experience</p>
+            </div>
+            <div class="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-10 max-w-4xl mx-auto reveal" style="transition-delay: 0.2s;">
+                <div class="flex flex-col lg:flex-row gap-6 sm:gap-8 items-center">
+                    <div class="album-glow flex-shrink-0 w-full lg:w-auto">
+                        <div class="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl mx-auto lg:mx-0">
+                            <img id="albumCover" src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=600&h=600&fit=crop" alt="Album Cover" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        </div>
+                    </div>
+                    <div class="flex-1 w-full">
+                        <div class="mb-4 sm:mb-6 text-center lg:text-left">
+                            <h3 id="songTitle" class="font-cinzel text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1">Shadows of the Mind</h3>
+                            <p id="songArtist" class="font-inter text-electric-blue/70 text-xs sm:text-sm tracking-wider">Peter Blvnco</p>
+                        </div>
+                        <div class="waveform-container mb-4 sm:mb-6" id="waveform"></div>
+                        <div class="mb-2">
+                            <div class="progress-container" id="progressContainer">
+                                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+                                <div class="progress-wave"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-xs font-orbitron text-white/50 mb-4 sm:mb-6">
+                            <span id="currentTime">0:00</span>
+                            <span id="totalTime">3:45</span>
+                        </div>
+                        <div class="flex items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-6">
+                            <button id="rewindBtn" class="touch-btn p-2 sm:p-3 text-white/60 hover:text-electric-blue transition-all duration-300 hover:scale-110" title="Rewind 10s">
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/>
+                                    <text x="8" y="15" font-size="8" fill="currentColor">10</text>
+                                </svg>
+                            </button>
+                            <button id="prevBtn" class="touch-btn p-2 sm:p-3 text-white/80 hover:text-electric-blue transition-all duration-300 hover:scale-110">
+                                <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                            </button>
+                            <button id="playBtn" class="touch-btn play-btn-pulse p-4 sm:p-5 bg-gradient-to-r from-electric-blue to-purple-neon rounded-full text-white shadow-lg shadow-electric-blue/30 transition-all duration-300 hover:shadow-electric-blue/50 hover:scale-105">
+                                <svg id="playIcon" class="w-6 h-6 sm:w-8 sm:h-8 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                <svg id="pauseIcon" class="w-6 h-6 sm:w-8 sm:h-8 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                            </button>
+                            <button id="nextBtn" class="touch-btn p-2 sm:p-3 text-white/80 hover:text-electric-blue transition-all duration-300 hover:scale-110">
+                                <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                            </button>
+                            <button id="forwardBtn" class="touch-btn p-2 sm:p-3 text-white/60 hover:text-electric-blue transition-all duration-300 hover:scale-110" title="Forward 10s">
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/>
+                                    <text x="14" y="15" font-size="8" fill="currentColor">10</text>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white/50 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                            </svg>
+                            <input type="range" id="volumeSlider" class="volume-slider flex-1" min="0" max="100" value="70">
+                            <span id="volumeValue" class="text-xs font-orbitron text-white/50 w-10 text-right flex-shrink-0">70%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="section-divider reveal"></div>
+    <!-- Track List -->
+    <section id="tracks" class="relative section-padding z-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="reveal">
+                <h2 class="font-cinzel text-2xl sm:text-3xl md:text-5xl font-bold text-center mb-2 sm:mb-4 neon-text">DISCOGRAPHY</h2>
+                <p class="font-orbitron text-purple-neon/60 text-center text-xs sm:text-sm tracking-[0.3em] uppercase mb-10 sm:mb-16">Select a Track to Play</p>
+            </div>
+            <div id="trackList" class="space-y-3 sm:space-y-4"></div>
+        </div>
+    </section>
+    <div class="section-divider reveal"></div>
+    <!-- Bio -->
+    <section id="bio" class="relative section-padding z-10 overflow-hidden">
+        <div class="smoke-overlay"></div>
+        <div class="ink-brush top-6 sm:top-10 left-4 sm:left-10 text-5xl sm:text-8xl font-japanese text-purple-neon">墨</div>
+        <div class="ink-brush bottom-12 sm:bottom-20 right-4 sm:right-10 text-4xl sm:text-6xl font-japanese text-electric-blue">影</div>
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="reveal">
+                <h2 class="font-cinzel text-2xl sm:text-3xl md:text-5xl font-bold text-center mb-2 sm:mb-4 neon-text">THE ARTIST</h2>
+                <p class="font-orbitron text-cyan-wave/60 text-center text-xs sm:text-sm tracking-[0.3em] uppercase mb-10 sm:mb-16">From the Shadows</p>
+            </div>
+            <div class="glass rounded-xl sm:rounded-2xl p-5 sm:p-8 md:p-12 reveal" style="transition-delay: 0.2s;">
+                <div class="relative">
+                    <div class="absolute -top-2 sm:-top-4 -left-1 sm:-left-2 text-4xl sm:text-6xl font-cinzel text-electric-blue/20">"</div>
+                    <p id="bioText" class="font-inter text-base sm:text-lg md:text-xl leading-relaxed text-gray-300 text-center relative z-10 px-2 sm:px-0"></p>
+                    <div class="absolute -bottom-4 sm:-bottom-8 -right-1 sm:-right-2 text-4xl sm:text-6xl font-cinzel text-purple-neon/20">"</div>
+                </div>
+                <div class="mt-6 sm:mt-10 flex justify-center">
+                    <div class="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-electric-blue/50 to-transparent"></div>
+                </div>
+                <p class="font-japanese text-center text-cyan-wave/40 text-xs sm:text-sm mt-4 sm:mt-6 tracking-widest">クリーブランドから — From Cleveland</p>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="relative py-8 sm:py-12 z-10 border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+            <p class="font-cinzel text-xl sm:text-2xl font-bold text-white/80 mb-3 sm:mb-4">PETER BLVNCO</p>
+            <p class="font-inter text-white/30 text-xs sm:text-sm mb-4 sm:mb-6">Elite Lyricism from the Shadows</p>
+            <div class="flex justify-center gap-4 sm:gap-6">
+                <a href="#" class="touch-btn text-white/40 hover:text-electric-blue transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                </a>
+                <a href="#" class="touch-btn text-white/40 hover:text-purple-neon transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="#" class="touch-btn text-white/40 hover:text-cyan-wave transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                </a>
+            </div>
+            <p class="font-inter text-white/20 text-xs mt-6 sm:mt-8">&copy; 2025 Peter Blvnco. All rights reserved.</p>
+        </div>
+    </footer>
+    <audio id="audioPlayer" preload="metadata"></audio>
+    <script>
+        const tracks = [
+            { id: 1, title: "Shadows of the Mind", artist: "Peter Blvnco", duration: "3:45", durationSec: 225, description: "Dark introspection meets elite bars", vibe: "Shadow", cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { id: 2, title: "Kung Fu Wisdom", artist: "Peter Blvnco", duration: "4:12", durationSec: 252, description: "Martial arts philosophy through bars", vibe: "Warrior", cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { id: 3, title: "Ocean Waves", artist: "Peter Blvnco", duration: "3:28", durationSec: 208, description: "Flow like water, strike like thunder", vibe: "Flow", cover: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+            { id: 4, title: "Neon Samurai", artist: "Peter Blvnco", duration: "3:55", durationSec: 235, description: "Blade sharp lyrics in a digital age", vibe: "Blade", cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
+            { id: 5, title: "Cleveland Nights", artist: "Peter Blvnco", duration: "4:30", durationSec: 270, description: "Hometown stories from the underground", vibe: "Hometown", cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
+            { id: 6, title: "Ink & Steel", artist: "Peter Blvnco", duration: "3:18", durationSec: 198, description: "Calligraphy of consciousness", vibe: "Art", cover: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" }
+        ];
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+        let isDragging = false;
+        const audio = document.getElementById("audioPlayer");
+        const playBtn = document.getElementById("playBtn");
+        const playIcon = document.getElementById("playIcon");
+        const pauseIcon = document.getElementById("pauseIcon");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const rewindBtn = document.getElementById("rewindBtn");
+        const forwardBtn = document.getElementById("forwardBtn");
+        const progressContainer = document.getElementById("progressContainer");
+        const progressFill = document.getElementById("progressFill");
+        const currentTimeEl = document.getElementById("currentTime");
+        const totalTimeEl = document.getElementById("totalTime");
+        const volumeSlider = document.getElementById("volumeSlider");
+        const volumeValue = document.getElementById("volumeValue");
+        const albumCover = document.getElementById("albumCover");
+        const songTitle = document.getElementById("songTitle");
+        const songArtist = document.getElementById("songArtist");
+        const playerBgBlur = document.getElementById("playerBgBlur");
+        const trackList = document.getElementById("trackList");
+        const waveform = document.getElementById("waveform");
+        const navbar = document.getElementById("navbar");
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobileMenu");
+        function init() {
+            generateParticles();
+            generateWaveform();
+            renderTrackList();
+            loadTrack(currentTrackIndex);
+            setupEventListeners();
+            setupScrollReveal();
+            setupNavbar();
+            typewriterBio();
+        }
+        function setupNavbar() {
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add("scrolled");
+                } else {
+                    navbar.classList.remove("scrolled");
+                }
+            });
+            hamburger.addEventListener("click", () => {
+                hamburger.classList.toggle("active");
+                mobileMenu.classList.toggle("open");
+                document.body.style.overflow = mobileMenu.classList.contains("open") ? "hidden" : "";
+            });
+        }
+        function closeMobileMenu() {
+            hamburger.classList.remove("active");
+            mobileMenu.classList.remove("open");
+            document.body.style.overflow = "";
+        }
+        function generateParticles() {
+            const container = document.getElementById("particles");
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement("div");
+                particle.className = "particle";
+                particle.style.left = Math.random() * 100 + "%";
+                particle.style.animationDuration = (Math.random() * 10 + 10) + "s";
+                particle.style.animationDelay = Math.random() * 10 + "s";
+                particle.style.width = (Math.random() * 3 + 1) + "px";
+                particle.style.height = particle.style.width;
+                const colors = ["rgba(59, 130, 246, 0.6)", "rgba(139, 92, 246, 0.6)", "rgba(6, 182, 212, 0.6)"];
+                particle.style.background = "radial-gradient(circle, " + colors[Math.floor(Math.random() * colors.length)] + ", transparent)";
+                container.appendChild(particle);
+            }
+        }
+        function generateWaveform() {
+            waveform.innerHTML = "";
+            const barCount = window.innerWidth < 768 ? 30 : 40;
+            for (let i = 0; i < barCount; i++) {
+                const bar = document.createElement("div");
+                bar.className = "waveform-bar";
+                bar.style.height = Math.random() * 30 + 10 + "px";
+                bar.dataset.baseHeight = bar.style.height;
+                waveform.appendChild(bar);
+            }
+        }
+        function animateWaveform() {
+            const bars = waveform.querySelectorAll(".waveform-bar");
+            bars.forEach((bar, i) => {
+                if (isPlaying) {
+                    const baseHeight = parseInt(bar.dataset.baseHeight);
+                    const variation = Math.sin(Date.now() / 200 + i * 0.3) * 15 + Math.random() * 10;
+                    bar.style.height = Math.max(4, baseHeight + variation) + "px";
+                } else {
+                    bar.style.height = bar.dataset.baseHeight;
+                }
+            });
+            requestAnimationFrame(animateWaveform);
+        }
+        function renderTrackList() {
+            trackList.innerHTML = tracks.map((track, index) => {
+                let playingIndicator = "";
+                if (index === currentTrackIndex && isPlaying) {
+                    playingIndicator = '<div class="absolute inset-0 bg-black/40 flex items-center justify-center"><div class="flex gap-0.5"><div class="w-0.5 sm:w-1 bg-electric-blue animate-pulse" style="height:10px;animation-delay:0s"></div><div class="w-0.5 sm:w-1 bg-purple-neon animate-pulse" style="height:14px;animation-delay:0.1s"></div><div class="w-0.5 sm:w-1 bg-cyan-wave animate-pulse" style="height:8px;animation-delay:0.2s"></div></div></div>';
+                }
+                return '<div class="track-card glass rounded-xl p-3 sm:p-4 flex items-center gap-3 sm:gap-4 cursor-pointer ' + (index === currentTrackIndex ? "active-track" : "") + '" onclick="selectTrack(' + index + ')" data-index="' + index + '"><div class="relative w-12 h-12 sm:w-16 sm:h-16 rounded-lg overflow-hidden flex-shrink-0"><img src="' + track.cover + '" alt="' + track.title + '" class="w-full h-full object-cover">' + playingIndicator + '</div><div class="flex-1 min-w-0"><h4 class="font-cinzel text-white font-semibold text-sm sm:text-base truncate">' + track.title + '</h4><p class="font-inter text-white/50 text-xs sm:text-sm truncate">' + track.description + '</p></div><div class="text-right flex-shrink-0"><span class="font-orbitron text-electric-blue/60 text-[10px] sm:text-xs">' + track.vibe + '</span><p class="font-inter text-white/40 text-[10px] sm:text-xs mt-0.5 sm:mt-1">' + track.duration + '</p></div></div>';
+            }).join("");
+        }
+        function selectTrack(index) {
+            currentTrackIndex = index;
+            loadTrack(index);
+            play();
+            renderTrackList();
+        }
+        function loadTrack(index) {
+            const track = tracks[index];
+            audio.src = track.url;
+            songTitle.textContent = track.title;
+            songArtist.textContent = track.artist;
+            totalTimeEl.textContent = track.duration;
+            albumCover.src = track.cover;
+            playerBgBlur.style.backgroundImage = "url(" + track.cover + ")";
+            document.querySelectorAll(".track-card").forEach((card, i) => {
+                card.classList.toggle("active-track", i === index);
+            });
+        }
+        function play() {
+            audio.play().then(() => {
+                isPlaying = true;
+                playIcon.classList.add("hidden");
+                pauseIcon.classList.remove("hidden");
+                renderTrackList();
+            }).catch(err => console.log("Audio play error:", err));
+        }
+        function pause() {
+            audio.pause();
+            isPlaying = false;
+            playIcon.classList.remove("hidden");
+                pauseIcon.classList.add("hidden");
+                renderTrackList();
+        }
+        function togglePlay() {
+            if (isPlaying) pause();
+            else play();
+        }
+        function nextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            loadTrack(currentTrackIndex);
+            play();
+            renderTrackList();
+        }
+        function previousTrack() {
+            currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            loadTrack(currentTrackIndex);
+            play();
+            renderTrackList();
+        }
+        function seekForward(seconds) {
+            audio.currentTime = Math.min(audio.currentTime + seconds, audio.duration || 0);
+        }
+        function seekBackward(seconds) {
+            audio.currentTime = Math.max(audio.currentTime - seconds, 0);
+        }
+        function updateProgress() {
+            if (!isDragging && audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressFill.style.width = percent + "%";
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+            }
+        }
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return mins + ":" + secs.toString().padStart(2, "0");
+        }
+        function seekTo(e) {
+            const rect = progressContainer.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const percent = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+            if (audio.duration) {
+                audio.currentTime = percent * audio.duration;
+                progressFill.style.width = (percent * 100) + "%";
+            }
+        }
+        function updateVolume() {
+            const val = volumeSlider.value;
+            audio.volume = val / 100;
+            volumeValue.textContent = val + "%";
+        }
+        function setupEventListeners() {
+            playBtn.addEventListener("click", togglePlay);
+            prevBtn.addEventListener("click", previousTrack);
+            nextBtn.addEventListener("click", nextTrack);
+            rewindBtn.addEventListener("click", () => seekBackward(10));
+            forwardBtn.addEventListener("click", () => seekForward(10));
+            audio.addEventListener("timeupdate", updateProgress);
+            audio.addEventListener("ended", nextTrack);
+            audio.addEventListener("loadedmetadata", () => {
+                totalTimeEl.textContent = formatTime(audio.duration);
+            });
+            volumeSlider.addEventListener("input", updateVolume);
+            progressContainer.addEventListener("mousedown", (e) => {
+                isDragging = true;
+                seekTo(e);
+            });
+            document.addEventListener("mousemove", (e) => {
+                if (isDragging) seekTo(e);
+            });
+            document.addEventListener("mouseup", () => {
+                isDragging = false;
+            });
+            progressContainer.addEventListener("touchstart", (e) => {
+                isDragging = true;
+                seekTo(e);
+            });
+            document.addEventListener("touchmove", (e) => {
+                if (isDragging) seekTo(e);
+            });
+            document.addEventListener("touchend", () => {
+                isDragging = false;
+            });
+            document.addEventListener("keydown", (e) => {
+                if (e.code === "Space") {
+                    e.preventDefault();
+                    togglePlay();
+                } else if (e.code === "ArrowRight") {
+                    seekForward(10);
+                } else if (e.code === "ArrowLeft") {
+                    seekBackward(10);
+                }
+            });
+        }
+        function setupScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+            document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+        }
+        function typewriterBio() {
+            const bioText = document.getElementById("bioText");
+            const text = "Peter Blvnco hailing from Cleveland, OH is an artist who is into the shadows of his own mind. Combining elite lyricism with his hard hitting bars is proof enough that he is someone you should tap into. Random anime drops and martial arts references is something that stands out with his wordplay. If you are looking to tap into some of the toughest wordplay you have never heard... He is the guy! Follow and Stream Peter Blvnco on ALL PLATFORMS!";
+            let i = 0;
+            bioText.textContent = "";
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && i === 0) {
+                        typeWriter();
+                    }
+                });
+            }, { threshold: 0.5 });
+            observer.observe(document.getElementById("bio"));
+            function typeWriter() {
+                if (i < text.length) {
+                    bioText.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 30);
+                }
+            }
+        }
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute("href"));
+                if (target) {
+                    target.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            });
+        });
+        init();
+        animateWaveform();
+    </script>
+</body>
+</html>
