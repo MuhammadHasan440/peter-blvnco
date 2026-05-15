@@ -28,8 +28,8 @@
                         'grain': 'grain 0.5s steps(10) infinite',
                         'flicker': 'flicker 4s infinite',
                         'wave-drift': 'waveDrift 8s ease-in-out infinite',
-                        'fade-up': 'fadeUp 1s ease-out forwards',
-                        'slide-in': 'slideIn 0.8s ease-out forwards',
+                        'fade-up': 'fadeUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+                        'slide-in': 'slideIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards',
                     },
                     keyframes: {
                         float: {
@@ -63,7 +63,7 @@
                             '75%': { transform: 'translateX(-10px) translateY(-10px)' },
                         },
                         fadeUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
                         },
                         slideIn: {
@@ -155,7 +155,7 @@
             top: 0; left: 0;
             width: 100%;
             z-index: 100;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             padding: 1rem 1.25rem;
         }
         @media (min-width: 768px) {
@@ -178,7 +178,7 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.6);
-            transition: color 0.3s;
+            transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
             padding: 0.5rem 0;
         }
         .nav-link::after {
@@ -189,7 +189,7 @@
             width: 0;
             height: 1px;
             background: linear-gradient(90deg, #3B82F6, #8B5CF6);
-            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .nav-link:hover { color: #3B82F6; }
         .nav-link:hover::after { width: 100%; }
@@ -202,6 +202,11 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .nav-logo:hover {
+            opacity: 0.8;
+            transform: scale(1.02);
         }
         @media (min-width: 768px) {
             .nav-logo { font-size: 1.25rem; }
@@ -222,7 +227,7 @@
             justify-content: center;
             gap: 2rem;
             transform: translateX(100%);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .mobile-menu.open {
             transform: translateX(0);
@@ -230,7 +235,19 @@
         .mobile-menu .nav-link {
             font-size: 1.1rem;
             letter-spacing: 0.2em;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), color 0.4s;
         }
+        .mobile-menu.open .nav-link {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .mobile-menu.open .nav-link:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu.open .nav-link:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu.open .nav-link:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu.open .nav-link:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu.open .nav-link:nth-child(5) { transition-delay: 0.5s; }
         .hamburger {
             display: flex;
             flex-direction: column;
@@ -239,13 +256,15 @@
             z-index: 101;
             padding: 8px;
             -webkit-tap-highlight-color: transparent;
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
         }
+        .hamburger:active { transform: scale(0.95); }
         .hamburger span {
             display: block;
             width: 22px;
             height: 2px;
             background: #3B82F6;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
             border-radius: 1px;
         }
         .hamburger.active span:nth-child(1) {
@@ -253,6 +272,7 @@
         }
         .hamburger.active span:nth-child(2) {
             opacity: 0;
+            transform: translateX(10px);
         }
         .hamburger.active span:nth-child(3) {
             transform: rotate(-45deg) translate(5px, -5px);
@@ -272,6 +292,10 @@
             background-size: cover;
             background-position: center 20%;
             z-index: 0;
+            transition: transform 8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .hero-bg.zoomed {
+            transform: scale(1.05);
         }
         .hero-bg::before {
             content: '';
@@ -293,6 +317,7 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(59, 130, 246, 0.15);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .glass-hover:hover {
             background: rgba(15, 23, 42, 0.6);
@@ -302,9 +327,14 @@
         }
         .neon-text {
             text-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.2);
+            transition: text-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .neon-text:hover {
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.7), 0 0 40px rgba(139, 92, 246, 0.5), 0 0 80px rgba(59, 130, 246, 0.3);
         }
         .neon-border {
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.3), inset 0 0 15px rgba(139, 92, 246, 0.1);
+            transition: box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .neon-border:hover {
             box-shadow: 0 0 25px rgba(59, 130, 246, 0.5), 0 0 50px rgba(139, 92, 246, 0.3), inset 0 0 25px rgba(139, 92, 246, 0.2);
@@ -317,12 +347,16 @@
             cursor: pointer;
             overflow: hidden;
             touch-action: none;
+            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .progress-container:hover {
+            transform: scaleY(1.2);
         }
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #3B82F6, #8B5CF6, #06B6D4);
             border-radius: 4px;
-            transition: width 0.1s linear;
+            transition: width 0.15s linear;
             position: relative;
         }
         .progress-fill::after {
@@ -330,16 +364,18 @@
             position: absolute;
             right: -8px;
             top: 50%;
-            transform: translateY(-50%);
+            transform: translateY(-50%) scale(0);
             width: 16px; height: 16px;
             background: #06B6D4;
             border-radius: 50%;
             box-shadow: 0 0 10px #06B6D4, 0 0 20px #3B82F6;
-            opacity: 1;
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1), transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        @media (min-width: 768px) {
-            .progress-fill::after { opacity: 0; }
-            .progress-container:hover .progress-fill::after { opacity: 1; }
+        .progress-container:hover .progress-fill::after,
+        .progress-container:active .progress-fill::after {
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
         }
         .progress-wave {
             position: absolute;
@@ -362,6 +398,10 @@
             outline: none;
             cursor: pointer;
             touch-action: none;
+            transition: background 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .volume-slider:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -371,10 +411,14 @@
             background: #06B6D4;
             box-shadow: 0 0 10px #06B6D4;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .volume-slider::-webkit-slider-thumb:hover {
             transform: scale(1.3);
+            box-shadow: 0 0 15px #06B6D4, 0 0 30px #3B82F6;
+        }
+        .volume-slider::-webkit-slider-thumb:active {
+            transform: scale(1.1);
         }
         .waveform-container {
             display: flex;
@@ -390,7 +434,7 @@
             width: 3px;
             background: linear-gradient(to top, #3B82F6, #8B5CF6, #06B6D4);
             border-radius: 2px;
-            transition: height 0.15s ease;
+            transition: height 0.3s cubic-bezier(0.22, 1, 0.36, 1);
         }
         @media (min-width: 768px) {
             .waveform-bar { width: 4px; }
@@ -437,14 +481,14 @@
         .reveal {
             opacity: 0;
             transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
         .track-card {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
             position: relative;
             overflow: hidden;
         }
@@ -454,7 +498,7 @@
             top: 0; left: -100%;
             width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-            transition: left 0.6s;
+            transition: left 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .track-card:hover::before {
             left: 100%;
@@ -470,11 +514,13 @@
         .track-card.active-track {
             border-color: #3B82F6;
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), inset 0 0 20px rgba(59, 130, 246, 0.05);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .ink-brush {
             position: absolute;
             opacity: 0.06;
             pointer-events: none;
+            transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .smoke-overlay {
             position: absolute;
@@ -490,6 +536,13 @@
         }
         .play-btn-pulse {
             position: relative;
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .play-btn-pulse:hover {
+            transform: scale(1.05);
+        }
+        .play-btn-pulse:active {
+            transform: scale(0.95);
         }
         .play-btn-pulse::before {
             content: '';
@@ -498,6 +551,10 @@
             border-radius: 50%;
             border: 2px solid rgba(59, 130, 246, 0.3);
             animation: playPulse 2s ease-out infinite;
+            transition: opacity 0.3s;
+        }
+        .play-btn-pulse:hover::before {
+            opacity: 0.6;
         }
         @keyframes playPulse {
             0% { transform: scale(1); opacity: 1; }
@@ -519,6 +576,11 @@
             filter: blur(15px);
             z-index: -1;
             animation: albumGlow 4s ease-in-out infinite;
+            transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .album-glow:hover::before {
+            opacity: 0.5;
+            filter: blur(25px);
         }
         @media (min-width: 768px) {
             .album-glow::before { inset: -10px; border-radius: 16px; filter: blur(20px); }
@@ -541,6 +603,7 @@
             mask-position: bottom;
             animation: silhouetteFade 8s ease-in-out infinite;
             display: none;
+            transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
         @media (min-width: 1024px) {
             .silhouette { display: block; width: 300px; height: 500px; }
@@ -554,6 +617,7 @@
             background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), transparent);
             margin: 0 auto;
             max-width: 300px;
+            transition: max-width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
         @media (min-width: 768px) {
             .section-divider { max-width: 600px; }
@@ -565,7 +629,7 @@
             background-position: center;
             filter: blur(60px) brightness(0.3);
             opacity: 0.4;
-            transition: background-image 1s ease;
+            transition: background-image 1.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
             z-index: -1;
         }
         @media (min-width: 768px) {
@@ -577,10 +641,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .touch-btn:hover {
+            transform: scale(1.1);
+        }
+        .touch-btn:active {
+            transform: scale(0.95);
         }
         .hero-title {
             font-size: 2.5rem;
             line-height: 1.1;
+            transition: text-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
         @media (min-width: 375px) {
             .hero-title { font-size: 3rem; }
@@ -611,7 +683,74 @@
         @media (min-width: 1024px) {
             .section-padding { padding-top: 8rem; padding-bottom: 8rem; }
         }
+        .album-cover-img {
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .album-cover-img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        .track-cover-img {
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .track-card:hover .track-cover-img {
+            transform: scale(1.08);
+        }
+        .social-link {
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+        .cta-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .cta-btn:hover::before {
+            transform: translateX(100%);
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
+        }
+        .cta-btn:active {
+            transform: translateY(0);
+        }
+        .scroll-indicator {
+            animation: scrollBounce 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+        }
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
+            50% { transform: translateX(-50%) translateY(10px); opacity: 1; }
+        }
+        .playing-indicator-bar {
+            animation: playingBar 0.8s cubic-bezier(0.22, 1, 0.36, 1) infinite alternate;
+        }
+        @keyframes playingBar {
+            0% { transform: scaleY(0.3); }
+            100% { transform: scaleY(1); }
+        }
+        .bio-quote-mark {
+            transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .glass:hover .bio-quote-mark {
+            opacity: 0.4;
+            transform: scale(1.1);
+        }
+        .footer-divider {
+            transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
     </style>
+<base target="_blank">
 <base target="_blank">
 </head>
 <body>
@@ -634,7 +773,7 @@
                 <a href="#player" class="nav-link">Music</a>
                 <a href="#tracks" class="nav-link">Tracks</a>
                 <a href="#bio" class="nav-link">Bio</a>
-                <a href="#player" class="px-5 py-2 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 border border-electric-blue/30 text-electric-blue font-orbitron text-xs tracking-widest uppercase rounded-sm transition-all duration-300 hover:from-electric-blue/30 hover:to-purple-neon/30 hover:border-electric-blue/60">
+                <a href="#player" class="cta-btn px-5 py-2 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 border border-electric-blue/30 text-electric-blue font-orbitron text-xs tracking-widest uppercase rounded-sm hover:from-electric-blue/30 hover:to-purple-neon/30 hover:border-electric-blue/60">
                     Stream
                 </a>
             </div>
@@ -651,13 +790,13 @@
         <a href="#player" class="nav-link" onclick="closeMobileMenu()">Music</a>
         <a href="#tracks" class="nav-link" onclick="closeMobileMenu()">Tracks</a>
         <a href="#bio" class="nav-link" onclick="closeMobileMenu()">Bio</a>
-        <a href="#player" class="px-8 py-3 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 border border-electric-blue/30 text-electric-blue font-orbitron text-sm tracking-widest uppercase rounded-sm" onclick="closeMobileMenu()">
+        <a href="#player" class="cta-btn px-8 py-3 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 border border-electric-blue/30 text-electric-blue font-orbitron text-sm tracking-widest uppercase rounded-sm" onclick="closeMobileMenu()">
             Stream Now
         </a>
     </div>
     <!-- Hero -->
     <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden z-10">
-        <div class="hero-bg"></div>
+        <div class="hero-bg" id="heroBg"></div>
         <div class="silhouette"></div>
         <div class="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto pt-16">
             <p class="font-japanese text-cyan-wave/40 text-sm sm:text-lg md:text-xl mb-3 sm:mb-4 tracking-[0.3em] animate-fade-up" style="animation-delay: 0.2s;">
@@ -670,15 +809,15 @@
                 Elite lyricism from the shadows of Cleveland
             </p>
             <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center animate-fade-up" style="animation-delay: 0.8s;">
-                <a href="#player" class="group relative px-8 sm:px-10 py-3 sm:py-4 bg-transparent border border-electric-blue/50 text-electric-blue font-orbitron text-xs sm:text-sm tracking-widest uppercase rounded-sm overflow-hidden transition-all duration-500 hover:border-electric-blue hover:text-white neon-border w-full sm:w-auto text-center">
+                <a href="#player" class="cta-btn group relative px-8 sm:px-10 py-3 sm:py-4 bg-transparent border border-electric-blue/50 text-electric-blue font-orbitron text-xs sm:text-sm tracking-widest uppercase rounded-sm w-full sm:w-auto text-center">
                     <span class="relative z-10">Enter Experience</span>
-                    <div class="absolute inset-0 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 cubic-bezier(0.22, 1, 0.36, 1)"></div>
                 </a>
-                <a href="#player" class="group px-8 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 border border-purple-neon/30 text-white font-orbitron text-xs sm:text-sm tracking-widest uppercase rounded-sm transition-all duration-500 hover:from-electric-blue/30 hover:to-purple-neon/30 hover:border-purple-neon/60 neon-border w-full sm:w-auto text-center">
+                <a href="#player" class="cta-btn group px-8 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-electric-blue/20 to-purple-neon/20 border border-purple-neon/30 text-white font-orbitron text-xs sm:text-sm tracking-widest uppercase rounded-sm neon-border w-full sm:w-auto text-center">
                     Stream Now
                 </a>
             </div>
-            <div class="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <div class="absolute bottom-6 sm:bottom-10 left-1/2 scroll-indicator">
                 <svg class="w-5 h-5 sm:w-6 sm:h-6 text-electric-blue/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                 </svg>
@@ -698,14 +837,14 @@
                 <div class="flex flex-col lg:flex-row gap-6 sm:gap-8 items-center">
                     <div class="album-glow flex-shrink-0 w-full lg:w-auto">
                         <div class="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl mx-auto lg:mx-0">
-                            <img id="albumCover" src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=600&h=600&fit=crop" alt="Album Cover" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+                            <img id="albumCover" src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=600&h=600&fit=crop" alt="Album Cover" class="album-cover-img w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                         </div>
                     </div>
                     <div class="flex-1 w-full">
                         <div class="mb-4 sm:mb-6 text-center lg:text-left">
-                            <h3 id="songTitle" class="font-cinzel text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1">Shadows of the Mind</h3>
-                            <p id="songArtist" class="font-inter text-electric-blue/70 text-xs sm:text-sm tracking-wider">Peter Blvnco</p>
+                            <h3 id="songTitle" class="font-cinzel text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 transition-all duration-500 cubic-bezier(0.22, 1, 0.36, 1)">Shadows of the Mind</h3>
+                            <p id="songArtist" class="font-inter text-electric-blue/70 text-xs sm:text-sm tracking-wider transition-all duration-500 cubic-bezier(0.22, 1, 0.36, 1)">Peter Blvnco</p>
                         </div>
                         <div class="waveform-container mb-4 sm:mb-6" id="waveform"></div>
                         <div class="mb-2">
@@ -719,23 +858,23 @@
                             <span id="totalTime">3:45</span>
                         </div>
                         <div class="flex items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-6">
-                            <button id="rewindBtn" class="touch-btn p-2 sm:p-3 text-white/60 hover:text-electric-blue transition-all duration-300 hover:scale-110" title="Rewind 10s">
+                            <button id="rewindBtn" class="touch-btn p-2 sm:p-3 text-white/60 hover:text-electric-blue" title="Rewind 10s">
                                 <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/>
                                     <text x="8" y="15" font-size="8" fill="currentColor">10</text>
                                 </svg>
                             </button>
-                            <button id="prevBtn" class="touch-btn p-2 sm:p-3 text-white/80 hover:text-electric-blue transition-all duration-300 hover:scale-110">
+                            <button id="prevBtn" class="touch-btn p-2 sm:p-3 text-white/80 hover:text-electric-blue">
                                 <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
                             </button>
-                            <button id="playBtn" class="touch-btn play-btn-pulse p-4 sm:p-5 bg-gradient-to-r from-electric-blue to-purple-neon rounded-full text-white shadow-lg shadow-electric-blue/30 transition-all duration-300 hover:shadow-electric-blue/50 hover:scale-105">
+                            <button id="playBtn" class="touch-btn play-btn-pulse p-4 sm:p-5 bg-gradient-to-r from-electric-blue to-purple-neon rounded-full text-white shadow-lg shadow-electric-blue/30 hover:shadow-electric-blue/50">
                                 <svg id="playIcon" class="w-6 h-6 sm:w-8 sm:h-8 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                                 <svg id="pauseIcon" class="w-6 h-6 sm:w-8 sm:h-8 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                             </button>
-                            <button id="nextBtn" class="touch-btn p-2 sm:p-3 text-white/80 hover:text-electric-blue transition-all duration-300 hover:scale-110">
+                            <button id="nextBtn" class="touch-btn p-2 sm:p-3 text-white/80 hover:text-electric-blue">
                                 <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
                             </button>
-                            <button id="forwardBtn" class="touch-btn p-2 sm:p-3 text-white/60 hover:text-electric-blue transition-all duration-300 hover:scale-110" title="Forward 10s">
+                            <button id="forwardBtn" class="touch-btn p-2 sm:p-3 text-white/60 hover:text-electric-blue" title="Forward 10s">
                                 <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/>
                                     <text x="14" y="15" font-size="8" fill="currentColor">10</text>
@@ -743,11 +882,11 @@
                             </button>
                         </div>
                         <div class="flex items-center gap-3">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white/50 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white/50 flex-shrink-0 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                             </svg>
                             <input type="range" id="volumeSlider" class="volume-slider flex-1" min="0" max="100" value="70">
-                            <span id="volumeValue" class="text-xs font-orbitron text-white/50 w-10 text-right flex-shrink-0">70%</span>
+                            <span id="volumeValue" class="text-xs font-orbitron text-white/50 w-10 text-right flex-shrink-0 transition-colors duration-300">70%</span>
                         </div>
                     </div>
                 </div>
@@ -778,12 +917,12 @@
             </div>
             <div class="glass rounded-xl sm:rounded-2xl p-5 sm:p-8 md:p-12 reveal" style="transition-delay: 0.2s;">
                 <div class="relative">
-                    <div class="absolute -top-2 sm:-top-4 -left-1 sm:-left-2 text-4xl sm:text-6xl font-cinzel text-electric-blue/20">"</div>
+                    <div class="bio-quote-mark absolute -top-2 sm:-top-4 -left-1 sm:-left-2 text-4xl sm:text-6xl font-cinzel text-electric-blue/20">"</div>
                     <p id="bioText" class="font-inter text-base sm:text-lg md:text-xl leading-relaxed text-gray-300 text-center relative z-10 px-2 sm:px-0"></p>
-                    <div class="absolute -bottom-4 sm:-bottom-8 -right-1 sm:-right-2 text-4xl sm:text-6xl font-cinzel text-purple-neon/20">"</div>
+                    <div class="bio-quote-mark absolute -bottom-4 sm:-bottom-8 -right-1 sm:-right-2 text-4xl sm:text-6xl font-cinzel text-purple-neon/20">"</div>
                 </div>
                 <div class="mt-6 sm:mt-10 flex justify-center">
-                    <div class="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-electric-blue/50 to-transparent"></div>
+                    <div class="h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-electric-blue/50 to-transparent footer-divider"></div>
                 </div>
                 <p class="font-japanese text-center text-cyan-wave/40 text-xs sm:text-sm mt-4 sm:mt-6 tracking-widest">クリーブランドから — From Cleveland</p>
             </div>
@@ -792,16 +931,16 @@
     <!-- Footer -->
     <footer class="relative py-8 sm:py-12 z-10 border-t border-white/5">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-            <p class="font-cinzel text-xl sm:text-2xl font-bold text-white/80 mb-3 sm:mb-4">PETER BLVNCO</p>
+            <p class="font-cinzel text-xl sm:text-2xl font-bold text-white/80 mb-3 sm:mb-4 transition-colors duration-500 hover:text-white">PETER BLVNCO</p>
             <p class="font-inter text-white/30 text-xs sm:text-sm mb-4 sm:mb-6">Elite Lyricism from the Shadows</p>
             <div class="flex justify-center gap-4 sm:gap-6">
-                <a href="#" class="touch-btn text-white/40 hover:text-electric-blue transition-colors duration-300">
+                <a href="#" class="social-link touch-btn text-white/40 hover:text-electric-blue">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
                 </a>
-                <a href="#" class="touch-btn text-white/40 hover:text-purple-neon transition-colors duration-300">
+                <a href="#" class="social-link touch-btn text-white/40 hover:text-purple-neon">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                 </a>
-                <a href="#" class="touch-btn text-white/40 hover:text-cyan-wave transition-colors duration-300">
+                <a href="#" class="social-link touch-btn text-white/40 hover:text-cyan-wave">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
                 </a>
             </div>
@@ -821,6 +960,7 @@
         let currentTrackIndex = 0;
         let isPlaying = false;
         let isDragging = false;
+        let waveformAnimationId = null;
         const audio = document.getElementById("audioPlayer");
         const playBtn = document.getElementById("playBtn");
         const playIcon = document.getElementById("playIcon");
@@ -844,6 +984,17 @@
         const navbar = document.getElementById("navbar");
         const hamburger = document.getElementById("hamburger");
         const mobileMenu = document.getElementById("mobileMenu");
+        const heroBg = document.getElementById("heroBg");
+
+        // Smooth easing function for animations
+        function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+        }
+
+        function easeOutQuart(t) {
+            return 1 - Math.pow(1 - t, 4);
+        }
+
         function init() {
             generateParticles();
             generateWaveform();
@@ -853,26 +1004,61 @@
             setupScrollReveal();
             setupNavbar();
             typewriterBio();
+            setupHeroParallax();
         }
-        function setupNavbar() {
+
+        function setupHeroParallax() {
+            let ticking = false;
             window.addEventListener("scroll", () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add("scrolled");
-                } else {
-                    navbar.classList.remove("scrolled");
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const scrollY = window.scrollY;
+                        const heroHeight = document.getElementById("hero").offsetHeight;
+                        if (scrollY < heroHeight) {
+                            const progress = scrollY / heroHeight;
+                            const eased = easeOutCubic(progress);
+                            heroBg.style.transform = `scale(${1 + eased * 0.05}) translateY(${scrollY * 0.3}px)`;
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
+        }
+
+        function setupNavbar() {
+            let lastScrollY = 0;
+            let ticking = false;
+
+            window.addEventListener("scroll", () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const scrollY = window.scrollY;
+                        if (scrollY > 50) {
+                            navbar.classList.add("scrolled");
+                        } else {
+                            navbar.classList.remove("scrolled");
+                        }
+                        lastScrollY = scrollY;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
             hamburger.addEventListener("click", () => {
                 hamburger.classList.toggle("active");
                 mobileMenu.classList.toggle("open");
                 document.body.style.overflow = mobileMenu.classList.contains("open") ? "hidden" : "";
             });
         }
+
         function closeMobileMenu() {
             hamburger.classList.remove("active");
             mobileMenu.classList.remove("open");
             document.body.style.overflow = "";
         }
+
         function generateParticles() {
             const container = document.getElementById("particles");
             for (let i = 0; i < 20; i++) {
@@ -888,57 +1074,96 @@
                 container.appendChild(particle);
             }
         }
+
         function generateWaveform() {
             waveform.innerHTML = "";
             const barCount = window.innerWidth < 768 ? 30 : 40;
             for (let i = 0; i < barCount; i++) {
                 const bar = document.createElement("div");
                 bar.className = "waveform-bar";
-                bar.style.height = Math.random() * 30 + 10 + "px";
-                bar.dataset.baseHeight = bar.style.height;
+                const baseHeight = Math.random() * 30 + 10;
+                bar.style.height = baseHeight + "px";
+                bar.dataset.baseHeight = baseHeight;
                 waveform.appendChild(bar);
             }
         }
+
         function animateWaveform() {
             const bars = waveform.querySelectorAll(".waveform-bar");
+            const time = Date.now();
             bars.forEach((bar, i) => {
                 if (isPlaying) {
-                    const baseHeight = parseInt(bar.dataset.baseHeight);
-                    const variation = Math.sin(Date.now() / 200 + i * 0.3) * 15 + Math.random() * 10;
-                    bar.style.height = Math.max(4, baseHeight + variation) + "px";
+                    const baseHeight = parseFloat(bar.dataset.baseHeight);
+                    const variation = Math.sin(time / 200 + i * 0.3) * 15 + Math.sin(time / 150 + i * 0.5) * 8;
+                    const newHeight = Math.max(4, baseHeight + variation);
+                    bar.style.height = newHeight + "px";
                 } else {
-                    bar.style.height = bar.dataset.baseHeight;
+                    const baseHeight = parseFloat(bar.dataset.baseHeight);
+                    const currentHeight = parseFloat(bar.style.height) || baseHeight;
+                    const diff = baseHeight - currentHeight;
+                    bar.style.height = (currentHeight + diff * 0.1) + "px";
                 }
             });
-            requestAnimationFrame(animateWaveform);
+            waveformAnimationId = requestAnimationFrame(animateWaveform);
         }
+
         function renderTrackList() {
             trackList.innerHTML = tracks.map((track, index) => {
                 let playingIndicator = "";
                 if (index === currentTrackIndex && isPlaying) {
-                    playingIndicator = '<div class="absolute inset-0 bg-black/40 flex items-center justify-center"><div class="flex gap-0.5"><div class="w-0.5 sm:w-1 bg-electric-blue animate-pulse" style="height:10px;animation-delay:0s"></div><div class="w-0.5 sm:w-1 bg-purple-neon animate-pulse" style="height:14px;animation-delay:0.1s"></div><div class="w-0.5 sm:w-1 bg-cyan-wave animate-pulse" style="height:8px;animation-delay:0.2s"></div></div></div>';
+                    playingIndicator = '<div class="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-sm"><div class="flex gap-0.5 items-end h-4"><div class="w-0.5 sm:w-1 bg-electric-blue rounded-full playing-indicator-bar" style="height:10px;animation-delay:0s"></div><div class="w-0.5 sm:w-1 bg-purple-neon rounded-full playing-indicator-bar" style="height:14px;animation-delay:0.15s"></div><div class="w-0.5 sm:w-1 bg-cyan-wave rounded-full playing-indicator-bar" style="height:8px;animation-delay:0.3s"></div></div></div>';
                 }
-                return '<div class="track-card glass rounded-xl p-3 sm:p-4 flex items-center gap-3 sm:gap-4 cursor-pointer ' + (index === currentTrackIndex ? "active-track" : "") + '" onclick="selectTrack(' + index + ')" data-index="' + index + '"><div class="relative w-12 h-12 sm:w-16 sm:h-16 rounded-lg overflow-hidden flex-shrink-0"><img src="' + track.cover + '" alt="' + track.title + '" class="w-full h-full object-cover">' + playingIndicator + '</div><div class="flex-1 min-w-0"><h4 class="font-cinzel text-white font-semibold text-sm sm:text-base truncate">' + track.title + '</h4><p class="font-inter text-white/50 text-xs sm:text-sm truncate">' + track.description + '</p></div><div class="text-right flex-shrink-0"><span class="font-orbitron text-electric-blue/60 text-[10px] sm:text-xs">' + track.vibe + '</span><p class="font-inter text-white/40 text-[10px] sm:text-xs mt-0.5 sm:mt-1">' + track.duration + '</p></div></div>';
+                return '<div class="track-card glass rounded-xl p-3 sm:p-4 flex items-center gap-3 sm:gap-4 cursor-pointer ' + (index === currentTrackIndex ? "active-track" : "") + '" onclick="selectTrack(' + index + ')" data-index="' + index + '"><div class="relative w-12 h-12 sm:w-16 sm:h-16 rounded-lg overflow-hidden flex-shrink-0"><img src="' + track.cover + '" alt="' + track.title + '" class="track-cover-img w-full h-full object-cover">' + playingIndicator + '</div><div class="flex-1 min-w-0"><h4 class="font-cinzel text-white font-semibold text-sm sm:text-base truncate">' + track.title + '</h4><p class="font-inter text-white/50 text-xs sm:text-sm truncate">' + track.description + '</p></div><div class="text-right flex-shrink-0"><span class="font-orbitron text-electric-blue/60 text-[10px] sm:text-xs">' + track.vibe + '</span><p class="font-inter text-white/40 text-[10px] sm:text-xs mt-0.5 sm:mt-1">' + track.duration + '</p></div></div>';
             }).join("");
         }
+
         function selectTrack(index) {
             currentTrackIndex = index;
             loadTrack(index);
             play();
             renderTrackList();
         }
+
         function loadTrack(index) {
             const track = tracks[index];
             audio.src = track.url;
-            songTitle.textContent = track.title;
-            songArtist.textContent = track.artist;
-            totalTimeEl.textContent = track.duration;
-            albumCover.src = track.cover;
+
+            // Smooth text transition
+            songTitle.style.opacity = "0";
+            songTitle.style.transform = "translateY(10px)";
+            songArtist.style.opacity = "0";
+            songArtist.style.transform = "translateY(10px)";
+
+            setTimeout(() => {
+                songTitle.textContent = track.title;
+                songArtist.textContent = track.artist;
+                totalTimeEl.textContent = track.duration;
+
+                songTitle.style.opacity = "1";
+                songTitle.style.transform = "translateY(0)";
+                songArtist.style.opacity = "1";
+                songArtist.style.transform = "translateY(0)";
+            }, 300);
+
+            // Smooth album cover transition
+            albumCover.style.opacity = "0";
+            albumCover.style.transform = "scale(0.95)";
+
+            setTimeout(() => {
+                albumCover.src = track.cover;
+                albumCover.onload = () => {
+                    albumCover.style.opacity = "1";
+                    albumCover.style.transform = "scale(1)";
+                };
+            }, 300);
+
             playerBgBlur.style.backgroundImage = "url(" + track.cover + ")";
+
             document.querySelectorAll(".track-card").forEach((card, i) => {
                 card.classList.toggle("active-track", i === index);
             });
         }
+
         function play() {
             audio.play().then(() => {
                 isPlaying = true;
@@ -947,35 +1172,63 @@
                 renderTrackList();
             }).catch(err => console.log("Audio play error:", err));
         }
+
         function pause() {
             audio.pause();
             isPlaying = false;
             playIcon.classList.remove("hidden");
-                pauseIcon.classList.add("hidden");
-                renderTrackList();
+            pauseIcon.classList.add("hidden");
+            renderTrackList();
         }
+
         function togglePlay() {
             if (isPlaying) pause();
             else play();
         }
+
         function nextTrack() {
             currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
             loadTrack(currentTrackIndex);
             play();
             renderTrackList();
         }
+
         function previousTrack() {
             currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
             loadTrack(currentTrackIndex);
             play();
             renderTrackList();
         }
+
         function seekForward(seconds) {
-            audio.currentTime = Math.min(audio.currentTime + seconds, audio.duration || 0);
+            const targetTime = Math.min(audio.currentTime + seconds, audio.duration || 0);
+            smoothSeek(targetTime);
         }
+
         function seekBackward(seconds) {
-            audio.currentTime = Math.max(audio.currentTime - seconds, 0);
+            const targetTime = Math.max(audio.currentTime - seconds, 0);
+            smoothSeek(targetTime);
         }
+
+        function smoothSeek(targetTime) {
+            const startTime = audio.currentTime;
+            const diff = targetTime - startTime;
+            const duration = 200; // ms
+            const start = performance.now();
+
+            function step(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = easeOutCubic(progress);
+                audio.currentTime = startTime + diff * eased;
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
         function updateProgress() {
             if (!isDragging && audio.duration) {
                 const percent = (audio.currentTime / audio.duration) * 100;
@@ -983,11 +1236,13 @@
                 currentTimeEl.textContent = formatTime(audio.currentTime);
             }
         }
+
         function formatTime(seconds) {
             const mins = Math.floor(seconds / 60);
             const secs = Math.floor(seconds % 60);
             return mins + ":" + secs.toString().padStart(2, "0");
         }
+
         function seekTo(e) {
             const rect = progressContainer.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -997,11 +1252,22 @@
                 progressFill.style.width = (percent * 100) + "%";
             }
         }
+
         function updateVolume() {
             const val = volumeSlider.value;
             audio.volume = val / 100;
             volumeValue.textContent = val + "%";
+
+            // Color transition based on volume
+            if (val > 70) {
+                volumeValue.style.color = "rgba(6, 182, 212, 0.8)";
+            } else if (val > 30) {
+                volumeValue.style.color = "rgba(59, 130, 246, 0.7)";
+            } else {
+                volumeValue.style.color = "rgba(255, 255, 255, 0.5)";
+            }
         }
+
         function setupEventListeners() {
             playBtn.addEventListener("click", togglePlay);
             prevBtn.addEventListener("click", previousTrack);
@@ -1014,6 +1280,7 @@
                 totalTimeEl.textContent = formatTime(audio.duration);
             });
             volumeSlider.addEventListener("input", updateVolume);
+
             progressContainer.addEventListener("mousedown", (e) => {
                 isDragging = true;
                 seekTo(e);
@@ -1039,27 +1306,41 @@
                     e.preventDefault();
                     togglePlay();
                 } else if (e.code === "ArrowRight") {
+                    e.preventDefault();
                     seekForward(10);
                 } else if (e.code === "ArrowLeft") {
+                    e.preventDefault();
                     seekBackward(10);
                 }
             });
+
+            // Smooth hover for album cover
+            albumCover.addEventListener("mouseenter", () => {
+                albumCover.style.transform = "scale(1.05)";
+            });
+            albumCover.addEventListener("mouseleave", () => {
+                albumCover.style.transform = "scale(1)";
+            });
         }
+
         function setupScrollReveal() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("active");
+                        observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
             document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
         }
+
         function typewriterBio() {
             const bioText = document.getElementById("bioText");
             const text = "Peter Blvnco hailing from Cleveland, OH is an artist who is into the shadows of his own mind. Combining elite lyricism with his hard hitting bars is proof enough that he is someone you should tap into. Random anime drops and martial arts references is something that stands out with his wordplay. If you are looking to tap into some of the toughest wordplay you have never heard... He is the guy! Follow and Stream Peter Blvnco on ALL PLATFORMS!";
             let i = 0;
             bioText.textContent = "";
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && i === 0) {
@@ -1068,23 +1349,42 @@
                 });
             }, { threshold: 0.5 });
             observer.observe(document.getElementById("bio"));
+
             function typeWriter() {
                 if (i < text.length) {
                     bioText.textContent += text.charAt(i);
                     i++;
-                    setTimeout(typeWriter, 30);
+                    const delay = Math.random() * 20 + 20; // Random delay between 20-40ms for natural feel
+                    setTimeout(typeWriter, delay);
                 }
             }
         }
+
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener("click", function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute("href"));
                 if (target) {
-                    target.scrollIntoView({ behavior: "smooth", block: "start" });
+                    const offset = 80;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: "smooth"
+                    });
                 }
             });
         });
+
+        // Handle resize with debounce
+        let resizeTimeout;
+        window.addEventListener("resize", () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                generateWaveform();
+            }, 250);
+        });
+
         init();
         animateWaveform();
     </script>
