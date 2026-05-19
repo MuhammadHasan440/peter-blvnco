@@ -288,7 +288,7 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-image: url(bWTTXR.jpeg);
+            background-image: url(/images/bWTTXR.jpeg);
             background-size: cover;
             background-position: center 20%;
             z-index: 0;
@@ -950,12 +950,30 @@
     <audio id="audioPlayer" preload="metadata"></audio>
     <script>
         const tracks = [
-            { id: 1, title: "Shadows of the Mind", artist: "Peter Blvnco", duration: "3:45", durationSec: 225, description: "Dark introspection meets elite bars", vibe: "Shadow", cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-            { id: 2, title: "Kung Fu Wisdom", artist: "Peter Blvnco", duration: "4:12", durationSec: 252, description: "Martial arts philosophy through bars", vibe: "Warrior", cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-            { id: 3, title: "Ocean Waves", artist: "Peter Blvnco", duration: "3:28", durationSec: 208, description: "Flow like water, strike like thunder", vibe: "Flow", cover: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
-            { id: 4, title: "Neon Samurai", artist: "Peter Blvnco", duration: "3:55", durationSec: 235, description: "Blade sharp lyrics in a digital age", vibe: "Blade", cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
-            { id: 5, title: "Cleveland Nights", artist: "Peter Blvnco", duration: "4:30", durationSec: 270, description: "Hometown stories from the underground", vibe: "Hometown", cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
-            { id: 6, title: "Ink & Steel", artist: "Peter Blvnco", duration: "3:18", durationSec: 198, description: "Calligraphy of consciousness", vibe: "Art", cover: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&h=600&fit=crop", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" }
+            {
+    id: 1,
+    title: "Private Dining",
+    artist: "Peter Blvnco",
+    duration: "2:16",
+    durationSec: 225,
+    description: "Dark introspection meets elite bars",
+    vibe: "Shadow",
+    cover: "/images/private.jpeg",   // image path
+    url: "/audios/Peter.wav"      // audio path
+},
+
+{
+    id: 2,
+    title: "Skywalker",
+    artist: "Peter Blvnco",
+    duration: "2:02",
+    durationSec: 252,
+    description: "Martial arts philosophy through bars",
+    vibe: "Warrior",
+    cover: "/images/skywalker.jpeg",        // image path
+    url: "/audios/Skywalker.mp3"           // audio path
+}
+           
         ];
         let currentTrackIndex = 0;
         let isPlaying = false;
