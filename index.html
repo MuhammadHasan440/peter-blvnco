@@ -947,6 +947,216 @@
             <p class="font-inter text-white/20 text-xs mt-6 sm:mt-8">&copy; 2025 Peter Blvnco. All rights reserved.</p>
         </div>
     </footer>
+    <div id="paymentPendingPopup" style="
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(5, 7, 13, 0.98);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    font-family: 'Inter', sans-serif;
+">
+    <div style="
+        max-width: 480px;
+        width: 100%;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 0 60px rgba(59, 130, 246, 0.2), 0 0 120px rgba(139, 92, 246, 0.1);
+        animation: popupPulse 3s ease-in-out infinite;
+    ">
+        <!-- Warning Icon -->
+        <div style="
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: warningPulse 2s ease-in-out infinite;
+        ">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+        </div>
+        
+        <!-- Title -->
+        <h2 style="
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #EF4444;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+        ">
+            ⚠️ PAYMENT PENDING
+        </h2>
+        
+        <!-- Subtitle -->
+        <p style="
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(239, 68, 68, 0.8);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        ">
+            Client Payment Not Received
+        </p>
+        
+        <!-- Divider -->
+        <div style="
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.4), transparent);
+            margin: 1.5rem 0;
+        "></div>
+        
+        <!-- Message -->
+        <p style="
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        ">
+            This website is currently <strong style="color: #EF4444;">LOCKED</strong> because the client has not completed the payment. The developer has not received the agreed payment for this project.
+        </p>
+        
+        <!-- Status Box -->
+        <div style="
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        ">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <div style="
+                    width: 8px;
+                    height: 8px;
+                    background: #EF4444;
+                    border-radius: 50%;
+                    animation: dotBlink 1.5s ease-in-out infinite;
+                "></div>
+                <span style="
+                    font-family: 'Orbitron', sans-serif;
+                    font-size: 0.75rem;
+                    color: #EF4444;
+                    letter-spacing: 0.1em;
+                    text-transform: uppercase;
+                ">
+                    Status: Payment Overdue
+                </span>
+            </div>
+            <p style="
+                font-size: 0.8rem;
+                color: rgba(255, 255, 255, 0.5);
+                font-family: 'Inter', sans-serif;
+            ">
+                Website access will be restored once payment is confirmed.
+            </p>
+        </div>
+        
+        <!-- Contact Info -->
+        <div style="
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        ">
+            <p style="
+                font-family: 'Orbitron', sans-serif;
+                font-size: 0.7rem;
+                color: rgba(59, 130, 246, 0.8);
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+            ">
+                Developer Contact
+            </p>
+            <p style="
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.6);
+                font-family: 'Inter', sans-serif;
+            ">
+                Please contact the developer to resolve payment and unlock this website.
+            </p>
+        </div>
+        
+        <!-- Locked Badge -->
+        <div style="
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 20px;
+            padding: 0.5rem 1.25rem;
+        ">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span style="
+                font-family: 'Orbitron', sans-serif;
+                font-size: 0.7rem;
+                color: #EF4444;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            ">
+                Website Locked
+            </span>
+        </div>
+        
+        <!-- Footer Note -->
+        <p style="
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 1.5rem;
+            font-family: 'Inter', sans-serif;
+        ">
+            🔒 This is a payment protection measure. No content is accessible until payment is cleared.
+        </p>
+    </div>
+</div>
+
+<style>
+    @keyframes popupPulse {
+        0%, 100% { box-shadow: 0 0 60px rgba(59, 130, 246, 0.2), 0 0 120px rgba(139, 92, 246, 0.1); }
+        50% { box-shadow: 0 0 80px rgba(59, 130, 246, 0.3), 0 0 160px rgba(139, 92, 246, 0.15); }
+    }
+    @keyframes warningPulse {
+        0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+        50% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+    }
+    @keyframes dotBlink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+    }
+    /* Hide all website content behind popup */
+    body > *:not(#paymentPendingPopup):not(.film-grain) {
+        filter: blur(8px);
+        pointer-events: none;
+        user-select: none;
+    }
+    /* Keep film grain visible but dimmed */
+    .film-grain {
+        opacity: 0.02 !important;
+    }
+</style>
     <audio id="audioPlayer" preload="metadata"></audio>
     <script>
         const tracks = [
